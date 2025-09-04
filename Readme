@@ -1,1 +1,50 @@
-This is the description file for this project
+Install Helm on Windows
+With the Chocolatey package manager: 
+1.	To install, run the command choco install kubernetes-helm. 
+2.	Verify the installation worked by running the command Helm version --short. You should see information about your version of Helm. 
+3.	To uninstall, run the command choco uninstall kubernetes-helm. 
+
+
+Helm create first-chart
+To deploy 
+helm install first-chart .
+
+check this is deployed -  use kube control
+
+kubectl get cm  
+
+describe key value pair 
+
+kubectl describe cm first-chart-configmap
+
+update new changes in helm 
+
+helm upgrade first-chart .
+add secrate.yml and 
+helm update first-chart .
+
+check secrate 
+kubectl describe secret first-secret
+
+
+Roll back to version 
+
+It rollback recent version => helm rollback first-chart
+To go to perticuler version we have to go to perticuler version by history cmd
+
+C:\Users\Z0219704\Documents\helm\first-chart>helm history first-chart
+REVISION        UPDATED                         STATUS          CHART                   APP VERSION     DESCRIPTION                                                                                               
+
+1               Wed Sep  3 16:38:35 2025        superseded      first-chart-0.1.0       1.16.0          Install complete                                                                                          
+
+2               Wed Sep  3 16:46:09 2025        superseded      first-chart-0.1.0       1.16.0          Upgrade complete                                                                                          
+
+3               Wed Sep  3 16:53:51 2025        failed          first-chart-0.1.0       1.16.0          Upgrade "first-chart" failed: failed to create resource: Secret in version "v1" cannot be handled as a Secret: illegal base64 data at input byte 20
+4               Wed Sep  3 16:54:11 2025        failed          first-chart-0.1.0       1.16.0          Upgrade "first-chart" failed: failed to create resource: Secret in version "v1" cannot be handled as a Secret: illegal base64 data at input byte 20
+5               Wed Sep  3 16:55:03 2025        failed          first-chart-0.1.0       1.16.0          Upgrade "first-chart" failed: failed to create resource: Secret in version "v1" cannot be handled as a Secret: illegal base64 data at input byte 20
+6               Wed Sep  3 16:57:10 2025        deployed        first-chart-0.1.0       1.16.0          Upgrade complete                                                                                          
+
+If u want to change it to version 1 
+
+then run command => helm rollback first-chart <revisionNumber>
+ => helm rollback first-chart 1 (example in our case)
